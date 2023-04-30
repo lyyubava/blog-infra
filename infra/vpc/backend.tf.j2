@@ -1,6 +1,6 @@
 terraform {
     backend "gcs" {
-        bucket = "diploma-{{ random_suffix }}-state"
-        prefix = "init"
+        bucket =  "{{ bucket }}"
+        prefix = "vpc"
     }
 }

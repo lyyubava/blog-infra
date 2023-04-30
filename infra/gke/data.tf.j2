@@ -1,0 +1,8 @@
+data "terraform_remote_state" "vpc" {
+  backend = "gcs"
+  config = {
+    bucket = "{{ bucket }}"
+    prefix = "vpc"
+  }
+}
+# "diploma-dum1aete-state"

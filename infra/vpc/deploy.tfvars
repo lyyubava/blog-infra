@@ -6,15 +6,3 @@ subnets = [
     name          = "subnet-dimploma"
   }
 ]
-
-firewall_rules = [
-  {
-    name          = "fw-db",
-    source_ranges = ["0.0.0.0/0"],
-    ports         = ["5432"],
-    protocol      = "tcp", 
-    direction     = "INGRESS"
-
-  }
-
-]
