@@ -1,6 +1,7 @@
 .terraform.lock.hcl
 .terraform/
 terraform.tfstate*
+*.tfstate
 # rendered backend and data
 backend.tf
 # local provision_infra 
