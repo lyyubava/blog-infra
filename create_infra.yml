@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  tasks:
+    - name: get_all_templates_file
+      ansible.builtin.script:
+        executable: python3
+        cmd: get_all_templates_file.py
+      register: templates
+
+    - name: Create state bucket
+      shell: 
+        cmd: "terraform init && terraform apply -var-file deploy.tfvars -auto-approve"
+        chdir: "infra/init"
+
+    - name: Render templates
+      template:
+        src: "{{ item }}"
+        dest: "{{ item | replace('.j2', '') }}"
+      vars:
+        bucket: "diploma-state"
+      loop: "{{ templates.stdout }}"
+
+    - name: Initialize state bucket
+      shell: 
+        cmd: "terraform init -force-copy && terraform apply -var-file deploy.tfvars -auto-approve"
+        chdir: "infra/init"
+
+    - name: Create resources
+      shell: 
+        cmd: "terraform init && terraform apply -var-file deploy.tfvars -auto-approve"
+        chdir: "{{ item }}"
+      loop:
+        - "infra/vpc"
+        - "infra/gke"
+        - "infra/db"
+        - "infra/registry"

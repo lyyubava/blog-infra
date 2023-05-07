@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Find directories
+      find:
+        paths: "infra"
+        file_type: directory
+      register: directories
+
+    - name: Recursively remove .terraform 
+      file:
+        path: "{{ item.path }}/.terraform"
+        state: absent
+      with_items: "{{ directories.files }}"
+
+    - name: Recursively remove .terraform.lock.hcl
+      file:
+        path: "{{ item.path }}/.terraform.lock.hcl"
+        state: absent
+      with_items: "{{ directories.files }}"
+
+    - name: Recursively remove terraform.tfstate
+      file:
+        path: "{{ item.path }}/terraform.tfstate"
+        state: absent
+      with_items: "{{ directories.files }}"
+
+    - name: Recursively remove terraform.tfstate.backup
+      file:
+        path: "{{ item.path }}/terraform.tfstate.backup"
+        state: absent
+      with_items: "{{ directories.files }}"
+
+    - name: get_all_templates_file
+      ansible.builtin.script:
+        executable: python3
+        cmd: get_all_templates_file.py
+      register: templates
+
+    - name: Recursively remove rendered templates
+      file:
+        path: "{{ item | replace('.j2', '') }}"
+        state: absent
+      loop: "{{ templates.stdout }}"
