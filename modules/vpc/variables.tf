@@ -9,15 +9,8 @@ variable "subnets" {
   }))
 }
 
+
+
 variable "region" {
-  type = string
-}
-
-
-variable "address_for_service_networking_connection" {
-  type = string
-}
-
-variable "project_id" {
   type = string
 }
