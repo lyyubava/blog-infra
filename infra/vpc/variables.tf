@@ -11,8 +11,15 @@ variable "subnets" {
   default = []
 }
 
+variable "project_id" {
+  type = string
+}
 
 
 variable "region" {
+  type = string
+}
+
+variable "address_for_service_networking_connection" {
   type = string
 }

@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  vars:
+    state_bucket: "{{ state_bucket }}"
   tasks:
     - name: get_all_templates_file
       ansible.builtin.script:
@@ -7,23 +9,13 @@
         cmd: get_all_templates_file.py
       register: templates
 
-    - name: Create state bucket
-      shell: 
-        cmd: "terraform init && terraform apply -var-file deploy.tfvars -auto-approve"
-        chdir: "infra/init"
-
     - name: Render templates
       template:
         src: "{{ item }}"
         dest: "{{ item | replace('.j2', '') }}"
       vars:
-        bucket: "diploma-state"
+        bucket: "{{ state_bucket }}"
       loop: "{{ templates.stdout }}"
-
-    - name: Initialize state bucket
-      shell: 
-        cmd: "terraform init -force-copy && terraform apply -var-file deploy.tfvars -auto-approve"
-        chdir: "infra/init"
 
     - name: Create resources
       shell: 

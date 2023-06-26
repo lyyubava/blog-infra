@@ -1,25 +1,25 @@
 variable "name" {
-    type = string
+  type = string
 }
 
 variable "location" {
-    type = string
+  type = string
 }
 
- variable "subnetwork" {
-     type = string
- }
- 
- variable "network" {
-     type = string
- }
+variable "subnetwork" {
+  type = string
+}
+
+variable "network" {
+  type = string
+}
 
 variable "master_ipv4_cidr_block" {
-    type = string
+  type = string
 }
 
 variable "cluster_ipv4_cidr_block" {
-    type = string
+  type = string
 }
 
 variable "services_ipv4_cidr_block" {
@@ -28,17 +28,11 @@ variable "services_ipv4_cidr_block" {
 
 variable "master_authorized_networks" {
 
-    type = object(
-        {
-            name = string
-            cidr_block = string
-        }
-    )
-  
-}
-variable "region" {
-    type = string
-}
-variable "project_id" { 
-    type = string
+  type = object(
+    {
+      name       = string
+      cidr_block = string
+    }
+  )
+
 }

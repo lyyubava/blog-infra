@@ -1,17 +1,17 @@
 
 variable "tier" {
-    type = string
+  type = string
 }
 
 variable "name" {
-    type = string
+  type = string
 }
 
 variable "region" {
-    type = string
+  type = string
 }
 
 variable "database_version" {
-    type = string
+  type = string
 }
 

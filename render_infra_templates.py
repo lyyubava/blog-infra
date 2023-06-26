@@ -4,9 +4,9 @@ import os
 from typing import List
 
 parser = ArgumentParser()
-parser.add_argument("--state_bucket", type=str, help="State bucket name", required=True)
-parser.add_argument("--infra_dir", type=str, help="Directory to render templates in", required=True)
-args = parser.parse_args()
+parser.add_argument("--state_bucket", type=str, help="State bucket name")
+parser.add_argument("--infra_dir", type=str, help="Directory to render templates in")
+args = parser.parse_known_args()
 environment = Environment(loader=FileSystemLoader("."))
 
 def get_all_templates(template_directory: str) -> List:
@@ -19,6 +19,7 @@ def get_all_templates(template_directory: str) -> List:
     return templates
     
 def render_templates(args):
+    print(args)
     templates = get_all_templates(args.infra_dir)
     for t in templates:
         template = environment.get_template(t)
@@ -32,3 +33,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+    
