@@ -8,13 +8,10 @@ terraform {
 }
 
 module "vpc" {
-  source                                    = "../../modules/vpc"
-  name                                      = var.name
-  subnets                                   = var.subnets
-  region                                    = var.region
-  address_for_service_networking_connection = var.address_for_service_networking_connection
-  project_id                                = var.project_id
+  source         = "../../modules/vpc"
+  name           = var.name
+  subnets        = var.subnets
+  region         = var.region
 }
-
 
 

@@ -3,7 +3,7 @@ output "vpc_name" {
 }
 
 output "subnets" {
-  value = { for k, v in google_compute_subnetwork.subnet : k => google_compute_subnetwork.subnet[k].name }
+   value = { for k, v in google_compute_subnetwork.subnet : k => google_compute_subnetwork.subnet[k].name }
 }
 
 output "vpc_id" {
